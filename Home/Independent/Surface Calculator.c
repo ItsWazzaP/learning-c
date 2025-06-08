@@ -12,6 +12,8 @@ List of features I want:
 1. Complex calculations, e.g. if we only know the diagonal of a square/rectangle and whatnot.
 2. Every triangle calculations
 3. GUI
+4. Foolproof what I can
+5. Learn how to use goto so the program doesn't exit immediately
 */
 
 #include <stdio.h>
@@ -29,7 +31,7 @@ REMINDERS:
 %s - string (array of characters)
 ********************************/
 
-int Square()
+void Square()
 {
     double square_side, square_diameter, square_surface;
     int square_choice;
@@ -42,28 +44,40 @@ int Square()
         case 1: // If Side
             printf("\nEnter your square's side: ");
             scanf("%lf", &square_side);
+            /////
+            if (square_side <= 0) {// Closes the program if the user is dumb :}
+                printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                system("pause"); // Pause so the user can get to know they're dumb D:
+                exit(EXIT_FAILURE); }
+            /////
             break;
         case 2: // If Diameter
             printf("\nEnter your square's diameter: ");
             scanf("%lf", &square_diameter);
+            /////
+            if (square_diameter <= 0) {
+                printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                system("pause");
+                exit(EXIT_FAILURE); }
+            /////
             square_side = square_diameter / sqrt(2);
             break;
         default:
-            printf("You have entered an incorrect value!");
+            printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+            system("pause");
+            exit(EXIT_FAILURE);
             break;
     }
 
     square_surface = pow(square_side, 2); // Raising square_side to the power of 2 (notes for myself in case I forget how it's read)
     printf("The surface of your square is %lf\n\n", square_surface);
-
-    return 0;
 }
 
 
 ////////////////////////////////////////////////////////
 
 
-int Rectangle()
+void Rectangle()
 {
     double rectangle_base, rectangle_height, rectangle_diameter, rectangle_angle, rectangle_surface;
     int rectangle_choice;
@@ -78,7 +92,12 @@ int Rectangle()
             scanf("%lf", &rectangle_base);
             printf("Enter the height of your rectangle: ");
             scanf("%lf", &rectangle_height);
-
+            /////
+            if (rectangle_base <= 0 || rectangle_height <= 0) {
+                printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                system("pause");
+                exit(EXIT_FAILURE); }
+            /////
             rectangle_surface = rectangle_base * rectangle_height;
             break;
         case 2: // If Diameter & Angle
@@ -86,7 +105,12 @@ int Rectangle()
             scanf("%lf", &rectangle_diameter);
             printf("Enter the angle of your rectangle (degrees): ");
             scanf("%lf", &rectangle_angle);
-
+            /////
+            if (rectangle_diameter <= 0 || rectangle_angle <= 0 || rectangle_angle >= 90 || rectangle_angle <= 0) {
+                printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                system("pause");
+                exit(EXIT_FAILURE); }
+            /////
             rectangle_angle = rectangle_angle * (PI / 180); // Converting to radians
 
             rectangle_base = rectangle_diameter * cos(rectangle_angle);
@@ -95,20 +119,20 @@ int Rectangle()
             rectangle_surface = rectangle_base * rectangle_height;
             break;
         default:
-            printf("You have entered an incorrect value!");
+            printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+            system("pause");
+            exit(EXIT_FAILURE);
             break;
     }
 
     printf("The surface of your rectangle is %lf\n\n", rectangle_surface);
-
-    return 0;
 }
 
 
 ////////////////////////////////////////////////////////
 
 
-int Circle()
+void Circle()
 {
     // Won't ask for the diameter, since radius = diameter / 2. Simple enough
     double circle_radius, circle_surface;
@@ -119,15 +143,13 @@ int Circle()
     circle_surface = PI * pow(circle_radius, 2);
 
     printf("The surface of your circle is %lf\n\n", circle_surface);
-
-    return 0;
 }
 
 
 ////////////////////////////////////////////////////////
 
 
-int Triangle()
+void Triangle()
 {
     /*
         Types of triangles and their surface (area) formulas:
@@ -180,7 +202,12 @@ int Triangle()
             scanf("%lf", &side_b);
             printf("Enter your hypotenuse (c): ");
             scanf("%lf", &hypotenuse);
-
+            /////
+            if (side_a <= 0 || side_b <= 0 || hypotenuse <= 0) {
+                printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                system("pause");
+                exit(EXIT_FAILURE); }
+            /////
             heron_s = (side_a + side_b + hypotenuse) / 2;
             triangle_surface = sqrt(heron_s * (heron_s - side_a) * (heron_s - side_b) * (heron_s - hypotenuse));
 
@@ -194,25 +221,42 @@ int Triangle()
                     scanf("%lf", &base);
                     printf("Enter your triangle's height: ");
                     scanf("%lf", &height);
-
+                    /////
+                    if (base <= 0 || height <= 0) {
+                        printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                        system("pause");
+                        exit(EXIT_FAILURE); }
+                    /////
                     triangle_surface = (base * height) / 2;
 
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
+
                 case 2: // Isosceles
                     printf("Enter your triangle's base: ");
                     scanf("%lf", &base);
                     printf("Enter your triangle's (perpendicular) height: ");
                     scanf("%lf", &height);
-
+                    /////
+                    if (base <= 0 || height <= 0) {
+                        printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                        system("pause");
+                        exit(EXIT_FAILURE); }
+                    /////
                     triangle_surface = (base * height) / 2;
                     
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
+
                 case 3: // Equilateral
                     printf("Enter your triangle's sides: ");
                     scanf("%lf", &side);
-
+                    /////
+                    if (side <= 0) {
+                        printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                        system("pause");
+                        exit(EXIT_FAILURE); }
+                    /////
                     triangle_surface = (pow(side, 2) * sqrt(3)) / 4;
 
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
@@ -225,33 +269,53 @@ int Triangle()
                     scanf("%lf", &base);
                     printf("Enter your triangle's height: ");
                     scanf("%lf", &height);
-
+                    /////
+                    if (base <= 0 || height <= 0) {
+                        printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                        system("pause");
+                        exit(EXIT_FAILURE); }
+                    /////
                     triangle_surface = (base * height) / 2;
                     
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
+
                 case 5: // Right
                     printf("Enter your triangle's first side (a): ");
                     scanf("%lf", &side_a);
                     printf("Enter your triangle's second side (b): ");
                     scanf("%lf", &side_b);
-
+                    /////
+                    if (side_a <= 0 || side_b <= 0) {
+                        printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                        system("pause");
+                        exit(EXIT_FAILURE); }
+                    /////
                     triangle_surface = (side_a * side_b) / 2;
 
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
+
                 case 6: // Obtuse
                     printf("Enter your triangle's base: ");
                     scanf("%lf", &base);
                     printf("Enter your triangle's height: ");
                     scanf("%lf", &height);
-
+                    /////
+                    if (base <= 0 || height <= 0) {
+                        printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                        system("pause");
+                        exit(EXIT_FAILURE); }
+                    /////
                     triangle_surface = (base * height) / 2;
                     
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
+
                 default:
-                    printf("You entered a wrong value.\nThe values are listed above (1-6)");
+                    printf("\nYou have entered an incorrect value!\nThe values are listed above (1-6). Exiting the program...\n\n");
+                    system("pause");
+                    exit(EXIT_FAILURE);
                     break;
             }
             break;
@@ -262,15 +326,23 @@ int Triangle()
             scanf("%lf", &side_b);
             printf("Enter your angle (between a & b): ");
             scanf("%lf", &angle_c);
-
+            /////
+            if (side_a <= 0 || side_b <= 0 || angle_c <= 0 || angle_c >= 180) {
+                printf("\nYou have entered an incorrect value! Exiting the program...\n\n");
+                system("pause");
+                exit(EXIT_FAILURE); }
+            /////
             angle_c = angle_c * (PI / 180);
             triangle_surface = (side_a * side_b * sin(angle_c)) / 2;
 
             printf("The surface of your triangle is %lf\n\n", triangle_surface);
             break;
+        default:
+            printf("\nYou have entered an incorrect value!\nThe values are listed above (1-3). Exiting the program...\n\n");
+            system("pause");
+            exit(EXIT_FAILURE);
+            break;
     }
-
-    return 0;
 }
 
 ////////////////////////////////////////////////////////
@@ -300,12 +372,12 @@ int main()
             Triangle();
             break;
         default:
-            printf("You entered a wrong value.\nThe values are listed above (1-4)");
+            printf("\nYou have entered an incorrect value!\nThe values are listed above (1-4). Exiting the program...\n\n");
             break;        
     }
 
     system("pause"); // Pauses the program so when you run the executable it doesn't exit immediately after it finishes
                      // Prints out the "Press any key to continue..." line
-
+                     // No need for exit(EXIT_FAILURE) since the program isn't running in a loop I suppose
     return 0;
 }
