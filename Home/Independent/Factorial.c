@@ -1,6 +1,7 @@
 // I'll try to make a factorial calculator using a FOR-loop
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
@@ -23,4 +24,6 @@ int main()
     {
         printf("Entered number (%d) isn't valid", number);
     }
+
+    system("pause");
 }

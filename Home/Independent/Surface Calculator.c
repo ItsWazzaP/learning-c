@@ -32,12 +32,12 @@ REMINDERS:
 int Square()
 {
     double square_side, square_diameter, square_surface;
-    int know_square_side;
+    int square_choice;
 
-    printf("\nDo you know your square's side or diameter?\n1 - Side\n2 - Diameter\n");
-    scanf("%d", &know_square_side);
+    printf("\nDo you know your square's side or diameter?\n1 - Side\n2 - Diameter\nEnter your choice: ");
+    scanf("%d", &square_choice);
 
-    switch (know_square_side)
+    switch (square_choice)
     {
         case 1: // If Side
             printf("\nEnter your square's side: ");
@@ -66,12 +66,12 @@ int Square()
 int Rectangle()
 {
     double rectangle_base, rectangle_height, rectangle_diameter, rectangle_angle, rectangle_surface;
-    int know_rectangle_side;
+    int rectangle_choice;
 
-    printf("\nDo you know your square's sides or diameter & angle?\n1 - Sides\n2 - Diameter & Angle\n");
-    scanf("%d", &know_rectangle_side);
+    printf("\nDo you know your square's sides or diameter & angle?\n1 - Sides\n2 - Diameter & Angle\nEnter your choice: ");
+    scanf("%d", &rectangle_choice);
 
-    switch (know_rectangle_side)
+    switch (rectangle_choice)
     {
         case 1: // If Sides
             printf("Enter the base of your rectangle: ");
@@ -87,7 +87,7 @@ int Rectangle()
             printf("Enter the angle of your rectangle (degrees): ");
             scanf("%lf", &rectangle_angle);
 
-            rectangle_angle = rectangle_angle * PI / 180; // Converting to radians
+            rectangle_angle = rectangle_angle * (PI / 180); // Converting to radians
 
             rectangle_base = rectangle_diameter * cos(rectangle_angle);
             rectangle_height = rectangle_diameter * sin(rectangle_angle);
@@ -122,10 +122,154 @@ int Circle()
 
     return 0;
 }
+
+
 ////////////////////////////////////////////////////////
+
+
 int Triangle()
 {
-    // TO-DO
+    /*
+        Types of triangles and their surface (area) formulas:
+
+        * By sides:
+
+        - Scalene (0 equal sides)
+            S = (base * height) / 2                // Any triangle if you know height
+
+        - Isosceles (2 equal sides)
+            S = (base * height) / 2                // Still requires perpendicular height
+
+        - Equilateral (3 equal sides)
+            S = (pow(side, 2) * sqrt(3)) / 4       // Only works for equilateral
+
+        * By angles:
+
+        - Acute (all angles < 90°)
+            S = (base * height) / 2                // Same general rule applies
+
+        - Right (1 angle = 90°)
+            S = (side_a * side_b) / 2              // a and b are the two legs (not the hypotenuse)
+
+        - Obtuse (1 angle > 90°)
+            S = (base * height) / 2                // Height must be from the obtuse angle’s vertex
+
+        * Trigonometric formulas:
+
+         When you know two sides and the included angle (SAS):
+            S = (side_a * side_b * sin(angle_c)) / 2         // angle_c is between sides a and b
+
+        * Heron’s Formula (when you know all 3 sides):
+            s = (side_a + side_b + hypotenuse) / 2                    // semi-perimeter
+            S = sqrt(s * (s - side_a) * (s - side_b) * (s - hypotenuse))
+    */
+    double side, side_a, side_b, hypotenuse, base, angle_a, angle_b, angle_c, height, heron_s, triangle_surface;
+    int triangle_choice, know_all_triangle_sides;
+    printf("\nWhat is your triangle type?\n\nBy sides:\n1 - Scalene (0 equal sides)\n2 - Isosceles (2 equal sides)\n3 - Equilateral (3 equal sides)\nBy angles:\n4 - Acute (all angles < 90 degrees)\n5 - Right (1 angle = 90 degrees)\n6 - Obtuse (1 angle > 90 degrees)\nEnter your choice: ");
+    scanf("%d", &triangle_choice);
+    printf("Do you know all your triangle's sides?\n1 - Yes\n2 - No\n3 - Sides (a & b) and the angle between them (SAS)\nEnter your choice: ");
+    scanf("%d", &know_all_triangle_sides);
+
+    // There's probably a more efficient way of doing this rather than nesting switch statements (I<3Switch), and when I figure it out I'll update this
+    switch (know_all_triangle_sides)
+    {
+        case 1: // Yes
+            printf("Enter your first side (a): ");
+            scanf("%lf", &side_a);
+            printf("Enter your second side (b): ");
+            scanf("%lf", &side_b);
+            printf("Enter your hypotenuse (c): ");
+            scanf("%lf", &hypotenuse);
+
+            heron_s = (side_a + side_b + hypotenuse) / 2;
+            triangle_surface = sqrt(heron_s * (heron_s - side_a) * (heron_s - side_b) * (heron_s - hypotenuse));
+
+            printf("The surface of your triangle is %lf\n\n", triangle_surface);
+            break;
+        case 2: // No
+            switch (triangle_choice)
+            {
+                case 1: // Scalene
+                    printf("Enter your triangle's base: ");
+                    scanf("%lf", &base);
+                    printf("Enter your triangle's height: ");
+                    scanf("%lf", &height);
+
+                    triangle_surface = (base * height) / 2;
+
+                    printf("The surface of your triangle is %lf\n\n", triangle_surface);
+                    break;
+                case 2: // Isosceles
+                    printf("Enter your triangle's base: ");
+                    scanf("%lf", &base);
+                    printf("Enter your triangle's (perpendicular) height: ");
+                    scanf("%lf", &height);
+
+                    triangle_surface = (base * height) / 2;
+                    
+                    printf("The surface of your triangle is %lf\n\n", triangle_surface);
+                    break;
+                case 3: // Equilateral
+                    printf("Enter your triangle's sides: ");
+                    scanf("%lf", &side);
+
+                    triangle_surface = (pow(side, 2) * sqrt(3)) / 4;
+
+                    printf("The surface of your triangle is %lf\n\n", triangle_surface);
+                    break;
+
+                /************** Here start the known angle type triangles **************/
+
+                case 4: // Acute
+                    printf("Enter your triangle's base: ");
+                    scanf("%lf", &base);
+                    printf("Enter your triangle's height: ");
+                    scanf("%lf", &height);
+
+                    triangle_surface = (base * height) / 2;
+                    
+                    printf("The surface of your triangle is %lf\n\n", triangle_surface);
+                    break;
+                case 5: // Right
+                    printf("Enter your triangle's first side (a): ");
+                    scanf("%lf", &side_a);
+                    printf("Enter your triangle's second side (b): ");
+                    scanf("%lf", &side_b);
+
+                    triangle_surface = (side_a * side_b) / 2;
+
+                    printf("The surface of your triangle is %lf\n\n", triangle_surface);
+                    break;
+                case 6: // Obtuse
+                    printf("Enter your triangle's base: ");
+                    scanf("%lf", &base);
+                    printf("Enter your triangle's height: ");
+                    scanf("%lf", &height);
+
+                    triangle_surface = (base * height) / 2;
+                    
+                    printf("The surface of your triangle is %lf\n\n", triangle_surface);
+                    break;
+                default:
+                    printf("You entered a wrong value.\nThe values are listed above (1-6)");
+                    break;
+            }
+            break;
+        case 3: // Side a & b and the angle between them (SAS)
+            printf("Enter your triangle's first side (a): ");
+            scanf("%lf", &side_a);
+            printf("Enter your triangle's second side (b): ");
+            scanf("%lf", &side_b);
+            printf("Enter your angle (between a & b): ");
+            scanf("%lf", &angle_c);
+
+            angle_c = angle_c * (PI / 180);
+            triangle_surface = (side_a * side_b * sin(angle_c)) / 2;
+
+            printf("The surface of your triangle is %lf\n\n", triangle_surface);
+            break;
+    }
+
     return 0;
 }
 
@@ -137,7 +281,8 @@ int main()
 {
     int body;
 
-    printf("1. Square\n2. Rectangle\n3. Circle\n4. Triangle\nEnter what type of body you wanna calculate the surface for: ");
+    printf("Please use the metric system instead of the imperial for measurements!\n\n");
+    printf("1 - Square\n2 - Rectangle\n3 - Circle\n4 - Triangle\nEnter what type of body you wanna calculate the surface for: ");
     scanf("%d", &body);
 
     switch (body)
