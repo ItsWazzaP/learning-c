@@ -9,11 +9,13 @@ I'm probably gonna switch my main language from C# to C 'cause of school, but C 
 THIS PROGRAM IS TO BE UPGRADED.
 
 List of features I want:
-1. Complex calculations, e.g. if we only know the diagonal of a square/rectangle and whatnot.
-2. Every triangle calculations
+1. ✅ Complex calculations, e.g. if we only know the diagonal of a square/rectangle and whatnot
+2. ✅ Every triangle calculations
 3. GUI
-4. Foolproof what I can
+4. ✅ Foolproof what I can
 5. Learn how to use goto so the program doesn't exit immediately
+6. Learn how to use structs to make variable stuff possibly less annoying
+7. Figure out how to calculate surfaces of irregular N-gons (https://www.wikihow.com/Calculate-the-Area-of-a-Polygon)
 */
 
 #include <stdio.h>
@@ -83,9 +85,9 @@ void Rectangle() /*••••••••••••••••••••�
     switch (rectangle_choice)
     {
         case 1: // If Sides
-            printf("Enter the base of your rectangle: ");
+            printf("Enter your rectangle's base: ");
             scanf("%lf", &rectangle_base);
-            printf("Enter the height of your rectangle: ");
+            printf("Enter your rectangle's height: ");
             scanf("%lf", &rectangle_height);
             /////
             if (rectangle_base <= 0 || rectangle_height <= 0) {
@@ -94,9 +96,9 @@ void Rectangle() /*••••••••••••••••••••�
             rectangle_surface = rectangle_base * rectangle_height;
             break;
         case 2: // If Diameter & Angle
-            printf("Enter the diameter of your rectangle: ");
+            printf("Enter your rectangle's diameter: ");
             scanf("%lf", &rectangle_diameter);
-            printf("Enter the angle of your rectangle (degrees): ");
+            printf("Enter your rectangle's angle (degrees): ");
             scanf("%lf", &rectangle_angle);
             /////
             if (rectangle_diameter <= 0 || rectangle_angle <= 0 || rectangle_angle >= 90 || rectangle_angle <= 0) {
@@ -160,7 +162,7 @@ void Triangle() /*••••••••••••••••••••�
             heron_s = (side_a + side_b + hypotenuse) / 2                    // semi-perimeter
             triangle_surface = sqrt(s * (s - side_a) * (s - side_b) * (s - hypotenuse))
     */
-    double side, side_a, side_b, hypotenuse, base, angle_a, angle_b, angle_c, height, heron_s, triangle_surface;
+    double triangle_side, triangle_side_a, triangle_side_b, triangle_hypotenuse, triangle_base, triangle_height, triangle_angle, triangle_heron_s, triangle_surface;
     int triangle_choice, know_all_triangle_sides;
     printf("\nWhat is your triangle type?\n\nBy sides:\n1 - Scalene (0 equal sides)\n2 - Isosceles (2 equal sides)\n3 - Equilateral (3 equal sides)\nBy angles:\n4 - Acute (all angles < 90 degrees)\n5 - Right (1 angle = 90 degrees)\n6 - Obtuse (1 angle > 90 degrees)\nEnter your choice: ");
     scanf("%d", &triangle_choice);
@@ -171,18 +173,18 @@ void Triangle() /*••••••••••••••••••••�
     switch (know_all_triangle_sides)
     {
         case 1: // Yes
-            printf("Enter your first side (a): ");
-            scanf("%lf", &side_a);
-            printf("Enter your second side (b): ");
-            scanf("%lf", &side_b);
-            printf("Enter your hypotenuse (c): ");
-            scanf("%lf", &hypotenuse);
+            printf("Enter your triangle's first side: ");
+            scanf("%lf", &triangle_side_a);
+            printf("Enter your triangle's second side: ");
+            scanf("%lf", &triangle_side_b);
+            printf("Enter your triangle's hypotenuse: ");
+            scanf("%lf", &triangle_hypotenuse);
             /////
-            if (side_a <= 0 || side_b <= 0 || hypotenuse <= 0) {
+            if (triangle_side_a <= 0 || triangle_side_b <= 0 || triangle_hypotenuse <= 0) {
                 ExitProgram(); }
             /////
-            heron_s = (side_a + side_b + hypotenuse) / 2;
-            triangle_surface = sqrt(heron_s * (heron_s - side_a) * (heron_s - side_b) * (heron_s - hypotenuse));
+            triangle_heron_s = (triangle_side_a + triangle_side_b + triangle_hypotenuse) / 2;
+            triangle_surface = sqrt(triangle_heron_s * (triangle_heron_s - triangle_side_a) * (triangle_heron_s - triangle_side_b) * (triangle_heron_s - triangle_hypotenuse));
 
             printf("The surface of your triangle is %lf\n\n", triangle_surface);
             break;
@@ -191,40 +193,40 @@ void Triangle() /*••••••••••••••••••••�
             {
                 case 1: // Scalene
                     printf("Enter your triangle's base: ");
-                    scanf("%lf", &base);
+                    scanf("%lf", &triangle_base);
                     printf("Enter your triangle's height: ");
-                    scanf("%lf", &height);
+                    scanf("%lf", &triangle_height);
                     /////
-                    if (base <= 0 || height <= 0) {
+                    if (triangle_base <= 0 || triangle_height <= 0) {
                         ExitProgram(); }
                     /////
-                    triangle_surface = (base * height) / 2;
+                    triangle_surface = (triangle_base * triangle_height) / 2;
 
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
 
                 case 2: // Isosceles
                     printf("Enter your triangle's base: ");
-                    scanf("%lf", &base);
+                    scanf("%lf", &triangle_base);
                     printf("Enter your triangle's (perpendicular) height: ");
-                    scanf("%lf", &height);
+                    scanf("%lf", &triangle_height);
                     /////
-                    if (base <= 0 || height <= 0) {
+                    if (triangle_base <= 0 || triangle_height <= 0) {
                         ExitProgram(); }
                     /////
-                    triangle_surface = (base * height) / 2;
+                    triangle_surface = (triangle_base * triangle_height) / 2;
                     
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
 
                 case 3: // Equilateral
                     printf("Enter your triangle's sides: ");
-                    scanf("%lf", &side);
+                    scanf("%lf", &triangle_side);
                     /////
-                    if (side <= 0) {
+                    if (triangle_side <= 0) {
                         ExitProgram(); }
                     /////
-                    triangle_surface = (pow(side, 2) * sqrt(3)) / 4;
+                    triangle_surface = (pow(triangle_side, 2) * sqrt(3)) / 4;
 
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
@@ -233,42 +235,42 @@ void Triangle() /*••••••••••••••••••••�
 
                 case 4: // Acute
                     printf("Enter your triangle's base: ");
-                    scanf("%lf", &base);
+                    scanf("%lf", &triangle_base);
                     printf("Enter your triangle's height: ");
-                    scanf("%lf", &height);
+                    scanf("%lf", &triangle_height);
                     /////
-                    if (base <= 0 || height <= 0) {
+                    if (triangle_base <= 0 || triangle_height <= 0) {
                         ExitProgram(); }
                     /////
-                    triangle_surface = (base * height) / 2;
+                    triangle_surface = (triangle_base * triangle_height) / 2;
                     
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
 
                 case 5: // Right
-                    printf("Enter your triangle's first side (a): ");
-                    scanf("%lf", &side_a);
-                    printf("Enter your triangle's second side (b): ");
-                    scanf("%lf", &side_b);
+                    printf("Enter your triangle's first side: ");
+                    scanf("%lf", &triangle_side_a);
+                    printf("Enter your triangle's second side: ");
+                    scanf("%lf", &triangle_side_b);
                     /////
-                    if (side_a <= 0 || side_b <= 0) {
+                    if (triangle_side_a <= 0 || triangle_side_b <= 0) {
                         ExitProgram(); }
                     /////
-                    triangle_surface = (side_a * side_b) / 2;
+                    triangle_surface = (triangle_side_a * triangle_side_b) / 2;
 
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
 
                 case 6: // Obtuse
                     printf("Enter your triangle's base: ");
-                    scanf("%lf", &base);
+                    scanf("%lf", &triangle_base);
                     printf("Enter your triangle's height: ");
-                    scanf("%lf", &height);
+                    scanf("%lf", &triangle_height);
                     /////
-                    if (base <= 0 || height <= 0) {
+                    if (triangle_base <= 0 || triangle_height <= 0) {
                         ExitProgram(); }
                     /////
-                    triangle_surface = (base * height) / 2;
+                    triangle_surface = (triangle_base * triangle_height) / 2;
                     
                     printf("The surface of your triangle is %lf\n\n", triangle_surface);
                     break;
@@ -279,18 +281,18 @@ void Triangle() /*••••••••••••••••••••�
             }
             break;
         case 3: // Side a & b and the angle between them (SAS)
-            printf("Enter your triangle's first side (a): ");
-            scanf("%lf", &side_a);
-            printf("Enter your triangle's second side (b): ");
-            scanf("%lf", &side_b);
-            printf("Enter your angle (between a & b): ");
-            scanf("%lf", &angle_c);
+            printf("Enter your triangle's first side: ");
+            scanf("%lf", &triangle_side_a);
+            printf("Enter your triangle's second side: ");
+            scanf("%lf", &triangle_side_b);
+            printf("Enter your triangle's angle (between a & b): ");
+            scanf("%lf", &triangle_angle);
             /////
-            if (side_a <= 0 || side_b <= 0 || angle_c <= 0 || angle_c >= 180) {
+            if (triangle_side_a <= 0 || triangle_side_b <= 0 || triangle_angle <= 0 || triangle_angle >= 180) {
                 ExitProgram(); }
             /////
-            angle_c = angle_c * (PI / 180);
-            triangle_surface = (side_a * side_b * sin(angle_c)) / 2;
+            triangle_angle = triangle_angle * (PI / 180);
+            triangle_surface = (triangle_side_a * triangle_side_b * sin(triangle_angle)) / 2;
 
             printf("The surface of your triangle is %lf\n\n", triangle_surface);
             break;
@@ -301,56 +303,56 @@ void Triangle() /*••••••••••••••••••••�
 }
 void Parallelogram() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
-    double base, side, height, long_diagonal, short_diagonal, angle, parallelogram_surface;
+    double parallelogram_base, parallelogram_side, parallelogram_height, parallelogram_long_diagonal, parallelogram_short_diagonal, parallelogram_angle, parallelogram_surface;
     int parallelogram_choice;
 
-    printf("\nWhat do you know about your parallelogram?\n1 - Base & height\n2 - Two diagonals and an angle\n3 - Base & side and an angle");
+    printf("\nWhat do you know about your parallelogram?\n1 - Base & height\n2 - Two diagonals and an angle\n3 - Base & side and an angle\nEnter your choice: ");
     scanf("%d", &parallelogram_choice);
     
     switch (parallelogram_choice)
     {
         case 1:
             printf("Enter your parallelogram's base: ");
-            scanf("%lf", &base);
+            scanf("%lf", &parallelogram_base);
             printf("Enter your parallelogram's height: ");
-            scanf("%lf", &height);
+            scanf("%lf", &parallelogram_height);
             /////
-            if (base <= 0 || height <= 0) {
+            if (parallelogram_base <= 0 || parallelogram_height <= 0) {
                 ExitProgram(); }
             /////
-            parallelogram_surface = base * height;
+            parallelogram_surface = parallelogram_base * parallelogram_height;
 
             printf("The surface of your parallelogram is %lf\n\n", parallelogram_surface);
             break;
         case 2:
             printf("Enter your parallelogram's long diagonal: ");
-            scanf("%lf", &long_diagonal);
-            printf("Enter your short diagonal: ");
-            scanf("%lf", &short_diagonal);
-            printf("Enter your angle (one of the angles where the diagonals meet): ");
-            scanf("%lf", &angle);
+            scanf("%lf", &parallelogram_long_diagonal);
+            printf("Enter your parallelogram's short diagonal: ");
+            scanf("%lf", &parallelogram_short_diagonal);
+            printf("Enter your parallelogram's angle (where the diagonals meet): ");
+            scanf("%lf", &parallelogram_angle);
             /////
-            if (long_diagonal <= 0 || short_diagonal <= 0 || angle >= 180 || angle <= 0) {
+            if (parallelogram_long_diagonal <= 0 || parallelogram_short_diagonal <= 0 || parallelogram_angle >= 180 || parallelogram_angle <= 0) {
                 ExitProgram(); }
             /////
-            angle = angle * (PI / 180);
-            parallelogram_surface = (long_diagonal * short_diagonal * sin(angle));
+            parallelogram_angle = parallelogram_angle * (PI / 180);
+            parallelogram_surface = (parallelogram_long_diagonal * parallelogram_short_diagonal * sin(parallelogram_angle));
 
             printf("The surface of your parallelogram is %lf\n\n", parallelogram_surface);
             break;
         case 3:
             printf("Enter your parallelogram's base: ");
-            scanf("%lf", &base);
+            scanf("%lf", &parallelogram_base);
             printf("Enter your parallelogram's side: ");
-            scanf("%lf", &side);
+            scanf("%lf", &parallelogram_side);
             printf("Enter your parallelogram's angle (DAB or BCD): ");
-            scanf("%lf", &angle);
+            scanf("%lf", &parallelogram_angle);
             /////
-            if (base <= 0 || side <= 0 || angle >= 180 || angle <= 0) {
+            if (parallelogram_base <= 0 || parallelogram_side <= 0 || parallelogram_angle >= 180 || parallelogram_angle <= 0) {
                 ExitProgram(); }
             /////
-            angle = angle * (PI / 180);
-            parallelogram_surface = base * side * sin(angle);
+            parallelogram_angle = parallelogram_angle * (PI / 180);
+            parallelogram_surface = parallelogram_base * parallelogram_side * sin(parallelogram_angle);
 
             printf("The surface of your parallelogram is %lf\n\n", parallelogram_surface);
             break;
@@ -361,10 +363,10 @@ void Parallelogram() /*•••••••••••••••••••
 }
 void Rhombus() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
-    double rhombus_side, rhombus_height, rhombus_first_diagonal, rhombus_second_diagonal, angle, rhombus_surface;
+    double rhombus_side, rhombus_height, rhombus_first_diagonal, rhombus_second_diagonal, rhombus_angle, rhombus_surface;
     int rhombus_choice;
 
-    printf("\nWhat do you know about your parallelogram?\n1 - Side & height\n2 - Diagonals\n3 - Side & angle");
+    printf("\nWhat do you know about your parallelogram?\n1 - Side & height\n2 - Diagonals\n3 - Side & angle\nEnter your choice: ");
     scanf("%d", &rhombus_choice);
 
     switch (rhombus_choice)
@@ -385,10 +387,29 @@ void Rhombus() /*•••••••••••••••••••••
         case 2:
             printf("Enter your rhombus' first diagonal: ");
             scanf("%lf", &rhombus_first_diagonal);
-            printf("Enter your rhombus' first diagonal: ");
+            printf("Enter your rhombus' second diagonal: ");
             scanf("%lf", &rhombus_second_diagonal);
+            /////
+            if (rhombus_first_diagonal <= 0 || rhombus_second_diagonal <= 0) {
+                ExitProgram(); }
+            /////
+            rhombus_surface = rhombus_first_diagonal * rhombus_second_diagonal;
+
+            printf("The surface of your rhombus is %lf\n\n", rhombus_surface);
             break;
         case 3:
+            printf("Enter your rhombus' side: ");
+            scanf("%lf", &rhombus_side);
+            printf("Enter your rhombus' angle: ");
+            scanf("%lf", rhombus_angle);
+            /////
+            if (rhombus_side <= 0 || rhombus_angle <= 0 || rhombus_angle >= 180) {
+                ExitProgram(); }
+            /////
+            rhombus_angle = rhombus_angle * (PI / 180);
+            rhombus_surface = rhombus_side * sin(rhombus_angle);
+
+            printf("The surface of your rhombus is %lf\n\n", rhombus_surface);
             break;
         default:
             ExitProgram();
@@ -398,22 +419,42 @@ void Rhombus() /*•••••••••••••••••••••
 void Deltoid() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
     double side_a, side_b, deltoid_surface;
+    int deltoid_choice;
+
+    printf("\nWhat do you know about your ?\n1 - Side & height\n2 - Diagonals\n3 - Side & angle\nEnter your choice: ");
+    scanf("%d", &deltoid_choice);
 }
-void Trapezoid()
+void Trapezoid() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
     double trapezoid_surface;
+    int trapezoid_choice;
+
+    printf("\nWhat do you know about your ?\n1 - Side & height\n2 - Diagonals\n3 - Side & angle\nEnter your choice: ");
+    scanf("%d", &trapezoid_choice);
 }
 void Pentagon() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
     double pentagon_surface;
+    int pentagon_choice;
+
+    printf("\nWhat do you know about your ?\n1 - Side & height\n2 - Diagonals\n3 - Side & angle\nEnter your choice: ");
+    scanf("%d", &pentagon_choice);
 }
 void Hexagon() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
     double hexagon_surface;
+    int hexagon_choice;
+
+    printf("\nWhat do you know about your ?\n1 - Side & height\n2 - Diagonals\n3 - Side & angle\nEnter your choice: ");
+    scanf("%d", &hexagon_choice);
 }
 void NGon() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
     double ngon_surface;
+    int ngon_choice;
+
+    printf("\nWhat do you know about your ?\n1 - Side & height\n2 - Diagonals\n3 - Side & angle\nEnter your choice: ");
+    scanf("%d", &ngon_choice);
 }
 
 ////////////////////////////////////////////////////////
@@ -425,7 +466,7 @@ int main()
     int body;
 
     printf("Please use the metric system instead of the imperial for measurements!\nInput angles in degrees, not radians!\n\n");
-    printf("1 - Square\n2 - Rectangle\n3 - Circle\n4 - Triangle\n5 - Parallelogram\n6 - Rhombus\n7 - Deltoid\n8 - Pentagon\n9 - Hexagon\n10 - N-gon");
+    printf("1 - Square\n2 - Rectangle\n3 - Circle\n4 - Triangle\n5 - Parallelogram\n6 - Rhombus\n7 - Deltoid\n8 - Trapezoid\n9 - Pentagon\n10 - Hexagon\n11 - N-gon");
     printf("\nEnter what type of body you wanna calculate the surface for: ");
     scanf("%d", &body);
 
