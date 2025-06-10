@@ -401,7 +401,7 @@ void Rhombus() /*•••••••••••••••••••••
             printf("Enter your rhombus' side: ");
             scanf("%lf", &rhombus_side);
             printf("Enter your rhombus' angle: ");
-            scanf("%lf", rhombus_angle);
+            scanf("%lf", &rhombus_angle);
             /////
             if (rhombus_side <= 0 || rhombus_angle <= 0 || rhombus_angle >= 180) {
                 ExitProgram(); }
@@ -416,13 +416,49 @@ void Rhombus() /*•••••••••••••••••••••
             break;
     }
 }
-void Deltoid() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
+void Kite() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
-    double side_a, side_b, deltoid_surface;
-    int deltoid_choice;
+    double kite_side_a, kite_side_b, kite_first_diagonal, kite_second_diagonal, kite_angle, kite_surface;
+    int kite_choice;
 
-    printf("\nWhat do you know about your ?\n1 - Side & height\n2 - Diagonals\n3 - Side & angle\nEnter your choice: ");
-    scanf("%d", &deltoid_choice);
+    printf("\nWhat do you know about your kite?\n1 - Sides & angle\n2 - Diagonals\nEnter your choice: ");
+    scanf("%d", &kite_choice);
+
+    switch (kite_choice)
+    {
+        case 1:
+            printf("Enter your kite's first side: ");
+            scanf("%lf", &kite_side_a);
+            printf("Enter your kite's second side: ");
+            scanf("%lf", &kite_side_b);
+            printf("Enter your kite's angle (between sides a & b): ");
+            scanf("%lf", &kite_angle);
+            /////
+            if (kite_side_a <= 0 || kite_side_b <= 0 || kite_angle <= 0 || kite_angle >= 180) {
+                ExitProgram(); }
+            /////
+            kite_angle = kite_angle * (PI / 180);
+            kite_surface = kite_side_a * kite_side_b * sin(kite_angle);
+
+            printf("The surface of your kite is %lf\n\n", kite_surface);
+            break;
+        case 2:
+            printf("Enter your kite's first diagonal: ");
+            scanf("%lf", &kite_first_diagonal);
+            printf("Enter your kite's second diagonal: ");
+            scanf("%lf", &kite_second_diagonal);
+            /////
+            if (kite_first_diagonal <= 0 || kite_second_diagonal <= 0) {
+                ExitProgram(); }
+            /////
+            kite_surface = (kite_first_diagonal * kite_second_diagonal) / 2;
+
+            printf("The surface of your kite is %lf\n\n", kite_surface);
+            break;
+        default:
+            ExitProgram();
+            break;
+    }
 }
 void Trapezoid() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
@@ -466,7 +502,7 @@ int main()
     int body;
 
     printf("Please use the metric system instead of the imperial for measurements!\nInput angles in degrees, not radians!\n\n");
-    printf("1 - Square\n2 - Rectangle\n3 - Circle\n4 - Triangle\n5 - Parallelogram\n6 - Rhombus\n7 - Deltoid\n8 - Trapezoid\n9 - Pentagon\n10 - Hexagon\n11 - N-gon");
+    printf("1 - Square\n2 - Rectangle\n3 - Circle\n4 - Triangle\n5 - Parallelogram\n6 - Rhombus\n7 - Kite\n8 - Trapezoid\n9 - Pentagon\n10 - Hexagon\n11 - N-gon");
     printf("\nEnter what type of body you wanna calculate the surface for: ");
     scanf("%d", &body);
 
@@ -491,7 +527,7 @@ int main()
             Rhombus();
             break;
         case 7:
-            Deltoid();
+            Kite();
             break;
         case 8:
             Trapezoid();
