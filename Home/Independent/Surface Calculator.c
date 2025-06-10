@@ -38,6 +38,10 @@ void ExitProgram() // Way too many places where this needed to be used, so I fin
     system("pause");
     exit(EXIT_FAILURE);
 }
+double RadianConvert(double angle_deg) // Figured out how to use arguments and return
+{                                      // Define a data type as argument. angle_deg gets replaced when the function gets called
+    return angle_deg * (PI / 180);     // e.g. RadianConvert(square_angle) will use square_angle instead of angle_deg
+}                                      // angle_deg is just a defined data type that's gonna be used
 
 void Square() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
@@ -104,7 +108,7 @@ void Rectangle() /*••••••••••••••••••••�
             if (rectangle_diameter <= 0 || rectangle_angle <= 0 || rectangle_angle >= 90 || rectangle_angle <= 0) {
                 ExitProgram(); }
             /////
-            rectangle_angle = rectangle_angle * (PI / 180); // Converting to radians
+            rectangle_angle = RadianConvert(rectangle_angle); // Converting to radians
 
             rectangle_base = rectangle_diameter * cos(rectangle_angle);
             rectangle_height = rectangle_diameter * sin(rectangle_angle);
@@ -291,7 +295,7 @@ void Triangle() /*••••••••••••••••••••�
             if (triangle_side_a <= 0 || triangle_side_b <= 0 || triangle_angle <= 0 || triangle_angle >= 180) {
                 ExitProgram(); }
             /////
-            triangle_angle = triangle_angle * (PI / 180);
+            triangle_angle = RadianConvert(triangle_angle);
             triangle_surface = (triangle_side_a * triangle_side_b * sin(triangle_angle)) / 2;
 
             printf("The surface of your triangle is %lf\n\n", triangle_surface);
@@ -335,7 +339,7 @@ void Parallelogram() /*•••••••••••••••••••
             if (parallelogram_long_diagonal <= 0 || parallelogram_short_diagonal <= 0 || parallelogram_angle >= 180 || parallelogram_angle <= 0) {
                 ExitProgram(); }
             /////
-            parallelogram_angle = parallelogram_angle * (PI / 180);
+            parallelogram_angle = RadianConvert(parallelogram_angle);
             parallelogram_surface = (parallelogram_long_diagonal * parallelogram_short_diagonal * sin(parallelogram_angle));
 
             printf("The surface of your parallelogram is %lf\n\n", parallelogram_surface);
@@ -351,7 +355,7 @@ void Parallelogram() /*•••••••••••••••••••
             if (parallelogram_base <= 0 || parallelogram_side <= 0 || parallelogram_angle >= 180 || parallelogram_angle <= 0) {
                 ExitProgram(); }
             /////
-            parallelogram_angle = parallelogram_angle * (PI / 180);
+            parallelogram_angle = RadianConvert(parallelogram_angle);
             parallelogram_surface = parallelogram_base * parallelogram_side * sin(parallelogram_angle);
 
             printf("The surface of your parallelogram is %lf\n\n", parallelogram_surface);
@@ -406,7 +410,7 @@ void Rhombus() /*•••••••••••••••••••••
             if (rhombus_side <= 0 || rhombus_angle <= 0 || rhombus_angle >= 180) {
                 ExitProgram(); }
             /////
-            rhombus_angle = rhombus_angle * (PI / 180);
+            rhombus_angle = RadianConvert(rhombus_angle);
             rhombus_surface = rhombus_side * sin(rhombus_angle);
 
             printf("The surface of your rhombus is %lf\n\n", rhombus_surface);
@@ -437,7 +441,7 @@ void Kite() /*••••••••••••••••••••••
             if (kite_side_a <= 0 || kite_side_b <= 0 || kite_angle <= 0 || kite_angle >= 180) {
                 ExitProgram(); }
             /////
-            kite_angle = kite_angle * (PI / 180);
+            kite_angle = RadianConvert(kite_angle);
             kite_surface = kite_side_a * kite_side_b * sin(kite_angle);
 
             printf("The surface of your kite is %lf\n\n", kite_surface);
@@ -462,11 +466,47 @@ void Kite() /*••••••••••••••••••••••
 }
 void Trapezoid() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
-    double trapezoid_surface;
-    int trapezoid_choice;
+    double trapezoid_surface, trapezoid_base_a, trapezoid_base_b, trapezoid_height;
+    int trapezoid_choice, know_bases_height;
 
-    printf("\nWhat do you know about your ?\n1 - Side & height\n2 - Diagonals\n3 - Side & angle\nEnter your choice: ");
+    printf("\nWhat is your trapezoid type?\n1 - Scalene (0 equal legs)\n2 - Isosceles (2 equal legs)\n3 - Right (2 angles = 90 degrees)\nEnter your choice: ");
     scanf("%d", &trapezoid_choice);
+    printf("Do you know your trapezoid's bases (a & b) and height?\n1 - Yes\n2 - No\nEnter your choice: ");
+    scanf("&d", &know_bases_height);
+
+    switch (know_bases_height)
+    {
+        case 1:
+            printf("Enter your trapezoid's first base: ");
+            scanf("%lf", &trapezoid_base_a);
+            printf("Enter your trapezoid's second base: ");
+            scanf("%lf", &trapezoid_base_b);
+            printf("Enter your trapezoid's height: ");
+            scanf("%lf", &trapezoid_height);
+            /////
+            if (trapezoid_base_a <= 0 || trapezoid_base_b <= 0 || trapezoid_height <= 0) {
+                ExitProgram(); }
+            /////
+            trapezoid_surface = ((trapezoid_base_a + trapezoid_base_b) * trapezoid_height) / 2;
+
+            printf("The surface of your trapezoid is %lf\n\n", trapezoid_surface);
+        case 2:
+            switch (trapezoid_choice)
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    ExitProgram();
+                    break;
+            }
+        default:
+            ExitProgram();
+            break;
+    }
 }
 void Pentagon() /*••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••*/
 {
