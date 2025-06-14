@@ -1,14 +1,14 @@
-Mathematics: 
-Serbian: 
-English: 
-Physical Education: 
-Physics: 
-Geography: 
-Basics in Electrotechnics: 
-Electronics: 
-Practical: 
-Operating Systems: 
-Computer Hardware: 
-Web Design: 
-Programming: 
-Governance: 
+Mathematics: 3
+Serbian: 4
+English: 5
+Physical Education: 3
+Physics: 4
+Geography: 4
+Basics in Electrotechnics: 5
+Electronics: 5
+Practical: 5
+Operating Systems: 5
+Computer Hardware: 5
+Web Design: 5
+Programming: 5
+Governance: 5
