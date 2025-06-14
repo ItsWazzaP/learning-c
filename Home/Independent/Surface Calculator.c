@@ -469,7 +469,7 @@ void Trapezoid() /*••••••••••••••••••••�
     double trapezoid_surface, trapezoid_base_a, trapezoid_base_b, trapezoid_height;
     int trapezoid_choice, know_bases_height;
 
-    printf("\nWhat is your trapezoid type?\n1 - Scalene (0 equal legs)\n2 - Isosceles (2 equal legs)\n3 - Right (2 angles = 90 degrees)\nEnter your choice: ");
+    printf("\nWhat is your trapezoid type?\n1 - General\n2 - Scalene (0 equal legs)\n3 - Isosceles (2 equal legs)\n4 - Right (2 angles = 90 degrees)\nEnter your choice: ");
     scanf("%d", &trapezoid_choice);
     printf("Do you know your trapezoid's bases (a & b) and height?\n1 - Yes\n2 - No\nEnter your choice: ");
     scanf("&d", &know_bases_height);
@@ -493,11 +493,11 @@ void Trapezoid() /*••••••••••••••••••••�
         case 2:
             switch (trapezoid_choice)
             {
-                case 1:
+                case 2: // Scalene
                     break;
-                case 2:
+                case 3: // Isosceles
                     break;
-                case 3:
+                case 4: // Right
                     break;
                 default:
                     ExitProgram();
