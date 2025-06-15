@@ -5,8 +5,10 @@
 
 int main()
 {
-    int number, factorial;
+    int number;
+    long long int factorial;
 
+    printf("Please note that any number above 20! will be displayed incorrectly due to the 64-bit Signed Integer Limit!!!\n\n");
     printf("Enter the number you want to calculate the factorial for: ");
     scanf("%d", &number);
 
@@ -18,11 +20,11 @@ int main()
         {
             factorial *= i; // I tried to multiply this with "number", which messed it up. Just use the for loop "i"
         }
-        printf("The factorial of %d is %d\n", number, factorial);
+        printf("The factorial of %d is %lld\n\n\n", number, factorial);
     }
     else
     {
-        printf("Entered number (%d) isn't valid", number);
+        printf("Entered number (%d) isn't valid\n\n\n", number);
     }
 
     system("pause");
