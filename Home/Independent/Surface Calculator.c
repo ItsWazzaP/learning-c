@@ -48,13 +48,13 @@ void Square() /*•••••••••••••••••••••�
     double square_side, square_diameter, square_surface;
     int square_choice;
 
-    printf("\nDo you know your square's side or diameter?\n1 - Side\n2 - Diameter\nEnter your choice: ");
+    printf("\nDo you know your square's side or diameter?\n1 - Side\n2 - Diameter\n\033[33mEnter your choice: \033[0m");
     scanf("%d", &square_choice);
 
     switch (square_choice)
     {
         case 1: // If Side
-            printf("\nEnter your square's side: ");
+            printf("\n\033[33mEnter your square's side: \033[0m");
             scanf("%lf", &square_side);
             /////
             if (square_side <= 0) {
@@ -542,49 +542,72 @@ int main()
     int body;
 
     printf("Please use the metric system instead of the imperial for measurements!\nInput angles in degrees, not radians!\n\n");
-    printf("1 - Square\n2 - Rectangle\n3 - Circle\n4 - Triangle\n5 - Parallelogram\n6 - Rhombus\n7 - Kite\n8 - Trapezoid\n9 - Pentagon\n10 - Hexagon\n11 - N-gon");
-    printf("\nEnter what type of body you wanna calculate the surface for: ");
-    scanf("%d", &body);
 
-    switch (body)
-    {
-        case 1:
-            Square();
-            break;
-        case 2:
-            Rectangle();
-            break;
-        case 3:
-            Circle();
-            break;
-        case 4:
-            Triangle();
-            break;
-        case 5:
-            Parallelogram();
-            break;
-        case 6:
-            Rhombus();
-            break;
-        case 7:
-            Kite();
-            break;
-        case 8:
-            Trapezoid();
-            break;
-        case 9:
-            Pentagon();
-            break;
-        case 10:
-            Hexagon();
-            break;
-        case 11:
-            NGon();
-            break;
-        default:
-            ExitProgram();
-            break;        
-    }
+    program_reset:
+    /*
+    Color codes (didn't even realize these existed loool):
+        Red: \033[31m
+        Green: \033[32m
+        Blue: \033[34m
+        Yellow: \033[33m
+        Cyan: \033[36m
+        Magenta: \033[35m
+        White: \033[37m
+        RESET COLORS: \033[0m
+    */
+        printf("1 - Square\n2 - Rectangle\n3 - Circle\n4 - Triangle\n5 - Parallelogram\n6 - Rhombus\n7 - Kite\n");
+        printf("8 - Trapezoid\n9 - Pentagon\n10 - Hexagon\n11 - N-gon\n\n\033[31m0 - TERMINATE PROGRAM\033[0m\n");
+        printf("\n\033[33mEnter what type of body you wanna calculate the surface for: \033[0m");
+        scanf("%d", &body);
+
+        switch (body)
+        {
+            case 1:
+                Square();
+                break;
+            case 2:
+                Rectangle();
+                break;
+            case 3:
+                Circle();
+                break;
+            case 4:
+                Triangle();
+                break;
+            case 5:
+                Parallelogram();
+                break;
+            case 6:
+                Rhombus();
+                break;
+            case 7:
+                Kite();
+                break;
+            case 8:
+                Trapezoid();
+                break;
+            case 9:
+                Pentagon();
+                break;
+            case 10:
+                Hexagon();
+                break;
+            case 11:
+                NGon();
+                break;
+            default:
+                printf("\n\n\n");
+                if (body == 0)
+                {
+                    printf("You have successfully terminated the program.\n\n");
+                    system("pause");
+                    exit(EXIT_FAILURE);
+                }
+                goto program_reset;
+                //ExitProgram();
+                break;
+        }
+    //} while (done == 0);
 
     system("pause"); // Pauses the program so when you run the executable it doesn't exit immediately after it finishes
                      // Prints out the "Press any key to continue..." line
